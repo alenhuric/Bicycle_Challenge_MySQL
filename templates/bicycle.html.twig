@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bicycle Details{% endblock %}
+
+{% block content %}
+
+    {# <style>
+        /* Navbar styles */
+        #navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            border-bottom-left-radius: 20px;
+        }
+
+        #navbar li {
+            float: left;
+        }
+
+        #navbar li a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        #navbar li a:hover {
+            background-color: #4a4a4a;
+        }
+    </style> #}
+    
+    <nav>
+        <ul id="navbar">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <h1>Bicycle Details</h1>
+    
+    <form action="{{ path('bicycle') }}" method="GET">
+        <label for="color">Bicycle Color:</label>
+        <input type="text" id="color" name="color" value="{{ bicycle.color }}">
+        
+        <label for="brand">Bicycle Brand:</label>
+        <input type="text" id="brand" name="brand" value="{{ bicycle.brand }}">
+        
+        <label for="status">Bicycle Status:</label>
+        <select id="status" name="status">
+            <option value="Running" {% if bicycle.status == 'Running' %}selected{% endif %}>Running</option>
+            <option value="Stopped" {% if bicycle.status == 'Stopped' %}selected{% endif %}>Stopped</option>
+        </select>
+        
+        <label for="currentSpeed">Current Speed:</label>
+        <input type="number" id="currentSpeed" name="currentSpeed" {% if bicycle.status == 'Stopped' %}readonly{% endif %} value="{{ bicycle.currentSpeed }}" class="{% if bicycle.status == 'Stopped' %}disabled-input{% endif %}">
+        
+        <label for="geolocation">Geolocation:</label>
+        <input type="text" id="geolocation" name="geolocation" value="{{ bicycle.geolocation }}">
+        
+        <label for="accelerateStatus">Accelerate Status:</label>
+        <select id="accelerateStatus" name="accelerateStatus" {% if bicycle.status == 'Stopped' %}disabled{% endif %}>
+            <option value="Accelerate" {% if bicycle.accelerateStatus == 'Accelerate' %}selected{% endif %}>Accelerate</option>
+            <option value="Deceleration" {% if bicycle.accelerateStatus == 'Deceleration' %}selected{% endif %}>Deceleration</option>
+        </select>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Check the bicycle status on page load
+                checkBicycleStatus();
+
+                // Check the bicycle status when the "Bicycle Status" select element changes
+                $('#status').change(function() {
+                    checkBicycleStatus();
+                });
+
+                function checkBicycleStatus() {
+                    var bicycleStatus = $('#status').val();
+
+                    if (bicycleStatus === 'Stopped') {
+                        $('#accelerateStatus').prop('disabled', true).val('Deceleration');
+                        $('#currentSpeed').prop('readonly', true).addClass('disabled-input');
+                    } else {
+                        $('#accelerateStatus').prop('disabled', false);
+                        $('#currentSpeed').prop('readonly', false).removeClass('disabled-input');
+                    }
+                }
+
+                // Retrieve the saved theme preference from local storage
+                var themePreference = localStorage.getItem('theme');
+
+                // Set the initial theme based on the saved preference
+                if (themePreference === 'dark') {
+                    $('body').addClass('dark');
+                }
+            });
+        </script>
+
+        <button type="submit">Update</button>
+    </form>
+    
+    <div class="info">
+        <p><strong>Color:</strong> {{ bicycle.color }}</p>
+        <p><strong>Brand:</strong> {{ bicycle.brand }}</p>
+        <p><strong>Status:</strong> {{ bicycle.status }}</p>
+        <p><strong>Current Speed:</strong> {{ bicycle.currentSpeed }} km/h</p>
+        <p><strong>Geolocation:</strong> {{ bicycle.geolocation }}</p>
+        <p><strong>Accelerate Status:</strong> {{ bicycle.accelerateStatus }}</p>
+    </div>
+{% endblock %}

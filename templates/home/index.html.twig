@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to the Home Page{% endblock %}
+
+{% block content %}
+    <style>
+        /* Navbar styles */
+        #navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            border-bottom-left-radius: 20px;
+        }
+
+        #navbar li {
+            float: left;
+        }
+
+        #navbar li a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        #navbar li a:hover {
+            background-color: #4a4a4a;
+        }
+
+        /* Content styles */
+        .content {
+            margin: 50px;
+            font-size: 20px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #333;
+        }
+
+        .content h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-left: 5px solid #4CAF50;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .content p:last-child {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            border-left: none;
+        }
+    </style>
+    
+    <nav>
+        <ul id="navbar">
+            <li><a href="/bike">Bicycle</a></li>
+            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="content">
+        <h1>Welcome to the Bicycle Challenge App!</h1>
+        
+        <p>Here, you can create your own customized bicycle with a range of exciting properties including color, brand, status, current speed, accelerate status, and geolocation.</p>
+
+        <p>Here are the rules of the app: If you set the status of your bicycle to "Stopped," the speed will be automatically set to 0, and the accelerate status will be set to "Deceleration." On the other hand, if you choose the accelerate status as "Accelerate," the speed of your bicycle will increase by 10. However, if you don't select "Accelerate" as the accelerate status, the speed will decrease by 5.</p>
+        
+        <p>Get ready to create your dream bicycle and experience the thrill of customizing its features according to your preferences. Let's get started!</p>
+    </div>
+{% endblock %}

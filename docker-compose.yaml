@@ -1,0 +1,33 @@
+version: '3.3'
+
+volumes:
+  mysql_data:
+
+services:
+  mysql:
+
+    image: mysql/mysql-server:8.0.23
+    volumes:
+      - "mysql_data:/var/lib/mysql"
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: bicycle_challenge
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    command: --lower_case_table_names=1
+#  sygnal:
+#    build: .docker/matrix/sygnal
+#  postgres:
+#    image: postgres
+#    restart: always
+#    environment:
+#      POSTGRES_PASSWORD: Phov4bah
+#      POSTGRES_USER: sygnal
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div id="loginForm" style="max-width: 350px; margin: 100px auto; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); transition: all 0.3s;">
+        <h1 style="text-align: center; margin-top: 0; padding-top: 10px; transition: color 0.3s;">Login</h1>
+
+        {% if error %}
+            <div id="errorMessage" style="padding: 10px; margin-bottom: 20px; background-color: #FFEBE6; border: 1px solid #FF4136; border-radius: 4px; transition: all 0.3s;">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <form action="{{ path('app_login') }}" method="post">
+            <div style="margin-bottom: 20px;">
+                <label for="username" style="font-weight: bold; transition: color 0.3s;">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" 
+                style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 4px; border: 1px solid #ccc; background-color: #fff; color: #000; transition: all 0.3s;"/>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="password" style="font-weight: bold; transition: color 0.3s;">Password:</label>
+                <input type="password" id="password" name="_password" required="required" 
+                style="width: 100%; box-sizing: border-box; padding: 10px; border-radius: 4px; border: 1px solid #ccc; background-color: #fff; color: #000; transition: all 0.3s;"/>
+            </div>
+
+            <button type="submit" id="submitButton" style="margin-bottom:15px;width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.3s;">Login</button>
+            <button style="text-align:center;margin-top: 15px;width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.3s;"><a  class="btn" href="{{ path('register') }}">Register</a></button>
+        </form>
+    </div>
+{% endblock %}

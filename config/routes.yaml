@@ -1,0 +1,16 @@
+controllers:
+  resource: ../src/Controller/
+  type: attribute
+
+#app_home:
+#path: /
+#controller: App\Controller\HomeController::index
+
+bicycle:
+  path: /bike
+  controller: App\Controller\BicycleController::index
+
+app:
+  resource: ../src/Controller/
+  type: annotation
+  prefix: /
