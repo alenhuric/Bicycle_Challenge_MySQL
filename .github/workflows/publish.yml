@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p /tmp/ssh
           touch /tmp/ssh/known_hosts
-          ssh-keyscan -t rsa alenhuric.com >> /tmp/ssh/known_hosts
+          echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDD/zCEMOKjQL2k1kbjcOfv6JHV+azlrEkRNawrULyA/ByH6FuCx+jDsjQJiuEG/Xr5dXGjXh1PfT6IuOnIi9MSL1EG/MwZCWfBbZPsFxG5dllp8sVZRr4rFYZF+6k6a+5MozKbFNvwt9rYu693ydax6NFGPcMStVQhZHWirxXdYu4rVEx7SouLgjAV7cWlKMoXAiHesFaITkmJcUSBhURGoRfA/C4UKkm0DjASkkHwC0Dj8J8+GODKjZGWCcTRunt+OhdYTGj4gZjn8r+HydXCnDggOHWdETZExuffog+i2WOeWV2IXrmOWb2dhjoKClbb4k8Y0GuWkedJhAQahNCUHIDT9tQnvWzDrayWSyJ66SlOh1MKflB7Kb71ukZQD9YLaSZegsU1wnsAONm5CScDkMVLAMYSn7TPckf77bN+FPQeJ32uUxjvzFEr436vyaJoDJ5ctpzEhTvQ4Uat7q2mN+ZLvEeZEI3N3Jw7ydWTrqIXBlcA6jUxPuZj5CZJnkE= u490557680@us-phx-web1009.main-hosting.eu' >> /tmp/ssh/known_hosts
 
       - name: Build Symfony app
         run: php bin/console cache:clear --env=prod
