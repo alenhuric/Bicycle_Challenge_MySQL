@@ -1,0 +1,41 @@
+name: Deploy Symfony with MySQL to Hostinger
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Adjust this to your Symfony project's PHP version
+
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Set up MySQL
+        uses: tesena-smart-testing/mysql-github-action@v1
+        with:
+          mysql-version: '5.7' # Adjust this to your MySQL version
+          mysql-database: u490557680_bicycle
+          mysql-user: u490557680_test
+          mysql-password: ${{ secrets.Database1 }}
+
+      - name: Build Symfony app
+        run: php bin/console cache:clear --env=prod
+
+      - name: Run Symfony migrations
+        run: php bin/console doctrine:migrations:migrate --no-interaction
+
+      - name: Deploy to Hostinger
+        run: |
+          ssh-keyscan your_domain >> ~/.ssh/known_hosts
+          sshpass -p ${{ secrets.HOSTINGER_PASSWORD }} scp -r ./ u490557680@alenhuric.com:/public_html/symfony
