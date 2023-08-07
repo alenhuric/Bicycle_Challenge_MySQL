@@ -30,9 +30,10 @@ jobs:
       - name: Build Symfony app
         run: php bin/console cache:clear --env=prod
 
-      - name: Set SSH password for sshpass
-        run: echo "export SSHPASS=${{ secrets.HOSTINGER_PASSWORD }}" >> $GITHUB_ENV
+      - name: Set SSH private key
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to Hostinger using SSH
         run: |
-          sshpass -e scp -r ./ u490557680@alenhuric.com:/public_html/symfony
+          ssh -o StrictHostKeyChecking=no u490557680@alenhuric.com "mkdir -p /public_html/symfony"
+          scp -r ./ u490557680@alenhuric.com:/public_html/symfony
