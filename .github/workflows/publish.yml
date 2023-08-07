@@ -31,7 +31,9 @@ jobs:
         run: php bin/console cache:clear --env=prod
 
       - name: Set SSH private key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+        run: |
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to Hostinger using SSH
         run: |
