@@ -24,9 +24,6 @@ jobs:
       - name: Build Symfony app
         run: php bin/console cache:clear --env=prod
 
-      - name: Run Symfony migrations
-        run: php bin/console doctrine:migrations:migrate --no-interaction
-
       - name: Deploy to Hostinger
         run: |
           ssh-keyscan your_domain >> ~/.ssh/known_hosts
