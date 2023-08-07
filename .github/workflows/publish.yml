@@ -25,10 +25,13 @@ jobs:
         run: |
           mkdir -p /tmp/ssh
           touch /tmp/ssh/known_hosts
-          echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDD/zCEMOKjQL2k1kbjcOfv6JHV+azlrEkRNawrULyA/ByH6FuCx+jDsjQJiuEG/Xr5dXGjXh1PfT6IuOnIi9MSL1EG/MwZCWfBbZPsFxG5dllp8sVZRr4rFYZF+6k6a+5MozKbFNvwt9rYu693ydax6NFGPcMStVQhZHWirxXdYu4rVEx7SouLgjAV7cWlKMoXAiHesFaITkmJcUSBhURGoRfA/C4UKkm0DjASkkHwC0Dj8J8+GODKjZGWCcTRunt+OhdYTGj4gZjn8r+HydXCnDggOHWdETZExuffog+i2WOeWV2IXrmOWb2dhjoKClbb4k8Y0GuWkedJhAQahNCUHIDT9tQnvWzDrayWSyJ66SlOh1MKflB7Kb71ukZQD9YLaSZegsU1wnsAONm5CScDkMVLAMYSn7TPckf77bN+FPQeJ32uUxjvzFEr436vyaJoDJ5ctpzEhTvQ4Uat7q2mN+ZLvEeZEI3N3Jw7ydWTrqIXBlcA6jUxPuZj5CZJnkE= u490557680@us-phx-web1009.main-hosting.eu' >> /tmp/ssh/known_hosts
+          echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCmUJnGMIHdKqi1s9KzHPAYWCDzM9mSCYkTUDxrW8QZbTvbB0wjmnhdqXa/tzIGQup0ylIu2FUeEt0Y7ttn119W49bjKoG/YZFCaUH2aRa+/DJWPO1Nyj36RPLl46iyUdBiOHanrBwWcyPsW/JH2uEmIKoT2YvIndZNYu9vdU5D/fS9PSMXFfblFWlFlZQu+ljQGSsLw+Pdofs0R3P/jmfOaUFXFjBbRlh6wAepwgVN6VzDbhGlzaYkjYBBXo8WHmlSY3vUUCZEFaf0/NDvneC7BX/WKlCcoYtPMZVErPLZKsgP6VkwQ0kIk2SThkVYgLFLbuH1xtYGxPzAKlDjdHphTEoc7r0C131gIjvTEJf6cAuSrbg7dnNwvjI1ATc1FlDFXrIUG6TV2ckr7UPaJfjp9u4tfcneOWLIxRANCPelwltoulkaoGvUaqucHYdqnF1lz4QLnDXU0sE8YhUkK71oZX3pbdkX0VGbgKvcf1RYOUX4oFxAukOEXweBiuvzNK8= u490557680@us-phx-web1009.main-hosting.eu' >> /tmp/ssh/known_hosts
 
       - name: Build Symfony app
         run: php bin/console cache:clear --env=prod
+
+      - name: Set SSH password for sshpass
+        run: echo "export SSHPASS=${{ secrets.HOSTINGER_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Deploy to Hostinger using SSH
         run: |
