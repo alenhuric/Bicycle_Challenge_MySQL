@@ -21,10 +21,15 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
+      - name: Prepare SSH
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/known_hosts
+          ssh-keyscan alenhuric.com >> ~/.ssh/known_hosts
+
       - name: Build Symfony app
         run: php bin/console cache:clear --env=prod
 
       - name: Deploy to Hostinger
         run: |
-          ssh-keyscan your_domain >> ~/.ssh/known_hosts
           sshpass -p ${{ secrets.HOSTINGER_PASSWORD }} scp -r ./ u490557680@alenhuric.com:/public_html/symfony
