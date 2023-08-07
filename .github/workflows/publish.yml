@@ -32,4 +32,4 @@ jobs:
 
       - name: Deploy to Hostinger using SSH
         run: |
-          sshpass -p ${{ secrets.HOSTINGER_PASSWORD }} scp -r ./ u490557680@alenhuric.com:/public_html/symfony
+          sshpass -e scp -r ./ u490557680@alenhuric.com:/public_html/symfony
