@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           touch ~/.ssh/known_hosts
-          ssh-keyscan alenhuric.com >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa alenhuric.com >> ~/.ssh/known_hosts
 
       - name: Build Symfony app
         run: php bin/console cache:clear --env=prod
