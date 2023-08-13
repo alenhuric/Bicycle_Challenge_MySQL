@@ -3,7 +3,7 @@ name: Deploy Symfony to Hostinger
 on:
   push:
     branches:
-      - master #master repo
+      - master #repo
 
 jobs:
   deploy:
