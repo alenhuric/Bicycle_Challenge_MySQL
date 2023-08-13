@@ -28,4 +28,4 @@ jobs:
 
       - name: Deploy to Hostinger
         run: |
-          ssh u490557680@154.56.47.47 "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
+          ssh u490557680@alenhuric.com "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
