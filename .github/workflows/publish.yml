@@ -1,44 +1,18 @@
-name: Build and Deploy Symfony
+name: Deploy Symfony to Hostinger
 
 on:
   push:
     branches:
-      - master
+      - master #master repo
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    name: Build and Deploy Symfony
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1' # Change to the appropriate PHP version
-
-      - name: Install Composer dependencies
-        run: composer install
-
-      - name: Build and Prepare Symfony App
-        run: |
-          # Replace with your Symfony-specific build and preparation commands
-          php bin/console cache:clear --env=prod
-          php bin/console assets:install --env=prod
-          php bin/console assetic:dump --env=prod
-
-      - name: Deploy Symfony
-        run: |
-          # Replace with your deployment commands
-          # For example, using rsync or similar tools to copy files to your server
-          # Or, if your server is set up to pull from a Git repository, trigger a deployment hook
-
-      - name: Commit and Push Symfony Deployment
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git checkout -b deploy-symfony
-          git add .
-          git commit -m "Deploy Symfony"
-          git push origin deploy-symfony
+    - name: Deploy via SSH
+      run: |
+        sshpass -p '${{ secrets.SSH_PASSWORD }}' ssh -v -o StrictHostKeyChecking=no -l ${{ secrets.SSH_USERNAME }} ${{ secrets.SSH_HOSTNAME }} -p ${{ secrets.SSH_PORT }} "cd /home/u490557680/public_html/symfony && git pull origin master && ../composer install && APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --env=prod"
