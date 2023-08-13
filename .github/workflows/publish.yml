@@ -3,7 +3,7 @@ name: Deploy Symfony to Hostinger
 on:
   push:
     branches:
-      - main # Change this to your branch name
+      - master # Change this to your branch name
 
 jobs:
   deploy:
