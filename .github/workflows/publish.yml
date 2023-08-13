@@ -1,18 +1,31 @@
-name: Deploy Symfony to Hostinger
+name: Deploy Symfony Project to Hostinger
 
 on:
   push:
     branches:
-      - master # Change this to your branch name
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    name: Deploy to Hostinger
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Deploy via SSH
-      run: |
-        sshpass -p '${{ secrets.SSH_PASSWORD }}' ssh -v -o StrictHostKeyChecking=no -l ${{ secrets.SSH_USERNAME }} ${{ secrets.SSH_HOSTNAME }} -p ${{ secrets.SSH_PORT }} "cd /home/u490557680/public_html/symfony && git pull origin master && ../composer install && APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --env=prod"
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Use the PHP version compatible with your Symfony project
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }} # Add your Hostinger SSH private key to GitHub Secrets
+
+      - name: Deploy to Hostinger
+        run: |
+          ssh u490557680@154.56.47.47 "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
