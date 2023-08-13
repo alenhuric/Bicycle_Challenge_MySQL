@@ -15,4 +15,4 @@ jobs:
 
     - name: Deploy via SSH
       run: |
-        sshpass -p '${{ secrets.SSH_PASSWORD }}' ssh -v -o StrictHostKeyChecking=no -l ${{ secrets.SSH_USERNAME }} ${{ secrets.SSH_HOSTNAME }} -p ${{ secrets.SSH_PORT }} "cd /home/u490557680/public_html/symfony && git pull origin master && ../composer install && APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --env=prod"
+        sshpass -p '${{ secrets.SSH_PASSWORD }}' ssh -v -o StrictHostKeyChecking=no -l ${{ secrets.SSH_USERNAME }} ${{ secrets.SSH_HOSTNAME }} -p ${{ secrets.SSH_PORT }} "cd /public_html/symfony && git pull origin master && ../composer install && APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --env=prod"
