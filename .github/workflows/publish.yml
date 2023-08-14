@@ -28,4 +28,4 @@ jobs:
 
       - name: SSH into the remote server
         run: |
-          ssh -p 65002 -i /Users/Alen/alenkey u490557680@alenhuric.com "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
+          ssh -p 65002 -i /Users/Alen/.ssh/alenkey u490557680@alenhuric.com "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
