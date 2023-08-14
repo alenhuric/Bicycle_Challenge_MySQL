@@ -26,6 +26,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }} # Add your Hostinger SSH private key to GitHub Secrets
 
-      - name: Deploy to Hostinger
+      - name: SSH into the remote server
         run: |
-          ssh -p 65002 u490557680@alenhuric.com "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
+          ssh -p 65002 -i /Users/Alen/alenkey u490557680@alenhuric.com "cd /home/u490557680/public_html/symfony && git pull origin master && php bin/console cache:clear --env=prod && php bin/console doctrine:migrations:migrate --no-interaction"
